@@ -1,9 +1,6 @@
 ﻿using ClientLogger.Business.Interfaces;
 using ClientLogger.Business.Models;
-using ClientLogger.Business.Repository;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ClientLogger.Business.Service
 {
