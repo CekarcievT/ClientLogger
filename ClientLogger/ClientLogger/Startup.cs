@@ -29,9 +29,11 @@ namespace ClientLogger
             {
                 options.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
             });
-            services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<GenericCRUDRepository, GenericCRUDRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IAddressService, AddressService>();
             services.AddControllers();
         }
 
