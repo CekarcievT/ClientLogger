@@ -5,6 +5,6 @@ namespace ClientLogger.Business.Interfaces
 {
     public interface IAddressService
     {
-        public List<AddressAggregationDTO> GetCountryAggregations(string property);
+        public List<AddressAggregationDTO> AggregateByField(string field);
     }
 }

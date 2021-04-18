@@ -1,10 +1,5 @@
 ﻿using ClientLogger.Business.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClientLogger.Controllers
 {
@@ -18,11 +13,11 @@ namespace ClientLogger.Controllers
         {
             _addressService = addressService;
         }
-        [HttpPost("AggregateByCountry")]
+        [HttpGet("AggregateByField")]
         // [ApiExceptionFilter]
-        public virtual IActionResult AggregateByCountry(string property)
+        public virtual IActionResult AggregateByField(string field)
         {
-            var result = _addressService.GetCountryAggregations(property);
+            var result = _addressService.AggregateByField(field);
             return JsonData(result);
         }
 

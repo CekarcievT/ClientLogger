@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject>ClientLogger.Program</StartupObject>
+    <UserSecretsId>5a488be8-33a6-41a4-879d-6257ddef0df2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

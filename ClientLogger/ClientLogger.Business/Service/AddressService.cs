@@ -1,9 +1,7 @@
 ﻿using ClientLogger.Business.Interfaces;
 using ClientLogger.Business.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ClientLogger.Business.Service
 {
@@ -16,11 +14,11 @@ namespace ClientLogger.Business.Service
             _addressRepository = addressRepository;
         }
 
-        public List<AddressAggregationDTO> GetCountryAggregations(string property)
+        public List<AddressAggregationDTO> AggregateByField(string field)
         {
             List<AddressAggregationDTO> result = new List<AddressAggregationDTO>();
             result = _addressRepository.GetAllAddresses()
-                .GroupBy(address => address.GetType().GetProperty(property).GetValue(address,null))
+                .GroupBy(address => address.GetType().GetProperty(field).GetValue(address,null))
                 .Select(address => new AddressAggregationDTO
                 {
                     Name = address.Key.ToString(),
