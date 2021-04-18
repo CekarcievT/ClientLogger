@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClientLogger.Business.Models
 {
@@ -12,5 +10,16 @@ namespace ClientLogger.Business.Models
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
         public int AddressId { get; set; }
+
+        public Client(ClientFullInfo clientFullInfo)
+        {
+            id = clientFullInfo.id;
+            FirstName = clientFullInfo.FirstName;
+            LastName = clientFullInfo.LastName;
+            Email = clientFullInfo.Email;
+            BirthDate = clientFullInfo.BirthDate;
+            AddressId = clientFullInfo.AddressId;
+        }
+        public Client() { }
     }
 }

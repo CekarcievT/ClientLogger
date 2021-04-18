@@ -1,13 +1,15 @@
 ﻿using ClientLogger.Business.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ClientLogger.Business.Interfaces
 {
     public interface IClientRepository
     {
-        public List<Client> GetAllClients();
-        public void DeleteClient(int id);
+        public List<ClientFullInfo> GetAllClients();
+        public ClientFullInfo GetClientById(int id);
+        public void UpdateClient(ClientFullInfo clientFullInfo);
+        public void CreateClient(ClientFullInfo clientFullInfo);
+        public void DeleteClient(ClientFullInfo clientFullInfo);
+
     }
 }

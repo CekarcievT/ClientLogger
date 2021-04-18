@@ -1,7 +1,5 @@
-﻿using ClientLogger.Business.Infrastructure;
-using ClientLogger.Business.Interfaces;
+﻿using ClientLogger.Business.Interfaces;
 using ClientLogger.Business.Models;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,28 +7,81 @@ namespace ClientLogger.Business.Repository
 {
     public class ClientRepository: IClientRepository
     {
-        IServiceScopeFactory _scopeFactory;
-        public ClientRepository(IServiceScopeFactory scopeFactory)
+        private readonly GenericCRUDRepository _crud;
+
+        public ClientRepository(GenericCRUDRepository crud)
         {
-            _scopeFactory = scopeFactory;
+            _crud = crud;
         }
 
-        public List<Client> GetAllClients()
+        public List<ClientFullInfo> GetAllClients()
         {
-            using (var scope = _scopeFactory.CreateScope())
+            return _crud.GetAllEntities<ClientFullInfo>().ToList();
+        }
+        public ClientFullInfo GetClientById(int id)
+        {
+            var client = _crud.GetEntityById<Client>(id);
+            var address = _crud.GetEntityById<Address>(client.AddressId);
+
+            ClientFullInfo result = new ClientFullInfo(client, address);
+
+            return result;
+        }
+        public void UpdateClient(ClientFullInfo clientFullInfo)
+        {
+            var transaction = _crud.Context.Database.BeginTransaction();
+
+            Client client = new Client(clientFullInfo);
+            Address address = new Address(clientFullInfo);
+
+            try
             {
-                var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-                return context.Client.ToList();
+                _crud.UpdateEntity<Address>(address);
+                _crud.UpdateEntity<Client>(client);
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
             }
         }
-        public void DeleteClient(int id)
+        public void DeleteClient(ClientFullInfo clientFullInfo)
         {
-            using (var scope = _scopeFactory.CreateScope())
+            var transaction = _crud.Context.Database.BeginTransaction();
+
+            Client client = new Client(clientFullInfo);
+            Address address = new Address(clientFullInfo);
+
+            try
             {
-                var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-                var client = context.Client.ToList().Where(x => x.id == id).SingleOrDefault();
-                context.Client.Remove(client);
-                context.SaveChanges();
+                _crud.DeleteEntity<Address>(address);
+                _crud.DeleteEntity<Client>(client);
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+            }
+        }
+
+        public void CreateClient(ClientFullInfo clientFullInfo)
+        {
+            var transaction = _crud.Context.Database.BeginTransaction();
+
+            Client client = new Client(clientFullInfo);
+            Address address = new Address(clientFullInfo);
+
+            try
+            {
+                _crud.CreateEntity<Client>(client);
+                _crud.CreateEntity<Address>(address);
+
+                transaction.Commit();
+            } catch
+            {
+                transaction.Rollback();
             }
         }
     }

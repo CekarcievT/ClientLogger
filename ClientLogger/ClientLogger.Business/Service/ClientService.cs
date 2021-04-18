@@ -11,10 +11,15 @@ namespace ClientLogger.Business.Service
             _clientRepository = clientRepository;
         }
         
-        public List<Client> GetAllCLients()
+        public List<ClientFullInfo> GetAllCLients()
         {
             var result = _clientRepository.GetAllClients();
             return result;
+        }
+
+        public void CreateClient(ClientFullInfo clientFullInfo)
+        {
+            _clientRepository.CreateClient(clientFullInfo);
         }
     }
 }

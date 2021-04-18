@@ -25,12 +25,13 @@ namespace ClientLogger
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<DataContext>(options =>
+            services.AddDbContextPool<DataContext>(options =>
             {
                 options.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
             });
-            services.AddSingleton<IClientRepository, ClientRepository>();
-            services.AddSingleton<IClientService, ClientService>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<GenericCRUDRepository, GenericCRUDRepository>();
+            services.AddScoped<IClientService, ClientService>();
             services.AddControllers();
         }
 

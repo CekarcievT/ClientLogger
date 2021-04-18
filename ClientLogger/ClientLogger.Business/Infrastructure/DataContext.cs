@@ -9,5 +9,7 @@ namespace ClientLogger.Business.Infrastructure
         {
         }
         public DbSet<Client> Client { get; set; }
+        public DbSet<Address> Address { get; set; }
+        public DbSet<ClientFullInfo> ClientFullInfo { get; set; }
     }
 }
