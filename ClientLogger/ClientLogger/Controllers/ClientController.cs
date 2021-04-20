@@ -17,6 +17,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("GetAllClients")]
+        [ApiExceptionFilter]
         [CustomAuthorizationFilter]
         public virtual IActionResult GetAllClients()
         {
@@ -25,6 +26,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("CreateClient")]
+        [ApiExceptionFilter]
         [CustomAuthorizationFilter]
         public virtual IActionResult CreateClient(ClientFullInfo clientFullInfo)
         {
@@ -33,6 +35,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("UpdateClient")]
+        [ApiExceptionFilter]
         [CustomAuthorizationFilter]
         public virtual IActionResult UpdateClient(ClientFullInfo clientFullInfo)
         {
@@ -41,6 +44,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("DeleteClient")]
+        [ApiExceptionFilter]
         [CustomAuthorizationFilter]
         public virtual IActionResult DeleteClient(ClientFullInfo clientFullInfo)
         {

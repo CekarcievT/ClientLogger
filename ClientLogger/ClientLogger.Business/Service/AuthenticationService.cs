@@ -1,6 +1,8 @@
-﻿using ClientLogger.Business.Interfaces;
+﻿using ClientLogger.Business.Infrastructure;
+using ClientLogger.Business.Interfaces;
 using ClientLogger.Business.Models;
 using System;
+using System.Collections.Generic;
 
 namespace ClientLogger.Business.Service
 {
@@ -31,7 +33,23 @@ namespace ClientLogger.Business.Service
 
         public void Logout(LoginUser user)
         {
-            _tokenService.InvalidateToken(user.UserName);
+            List<RuleViolation> ruleViolations = new List<RuleViolation>();
+            if (String.IsNullOrEmpty(user.UserName))
+            {
+                ruleViolations.Add(new RuleViolation("Username cannot be null"));
+            }
+            if (ruleViolations.Count > 0)
+            {
+                throw new RuleViolationException(ruleViolations);
+            }
+            try
+            {
+                _tokenService.InvalidateToken(user.UserName);
+            } catch (Exception ex)
+            {
+                ruleViolations.Add(new RuleViolation(ex));
+                throw new RuleViolationException(ruleViolations);
+            }
         }
     }
 }

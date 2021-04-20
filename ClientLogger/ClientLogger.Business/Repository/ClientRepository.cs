@@ -30,9 +30,9 @@ namespace ClientLogger.Business.Repository
         public void UpdateClient(ClientFullInfo clientFullInfo)
         {
             var transaction = _crud.Context.Database.BeginTransaction();
-
-            Client client = new Client(clientFullInfo);
-            Address address = new Address(clientFullInfo);
+            ClientFullInfo clientFull = GetClientById(clientFullInfo.id);
+            Client client = new Client(clientFull);
+            Address address = new Address(clientFull);
 
             try
             {

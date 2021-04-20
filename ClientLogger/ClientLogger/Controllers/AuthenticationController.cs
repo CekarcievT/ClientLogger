@@ -24,6 +24,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("Logout")]
+        [ApiExceptionFilter]
         [CustomAuthorizationFilter]
         public virtual IActionResult Logout(LoginUser user)
         {

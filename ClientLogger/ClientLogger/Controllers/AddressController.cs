@@ -16,6 +16,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("AggregateByField")]
+        [ApiExceptionFilter]
         [CustomAuthorizationFilter]
         public virtual IActionResult AggregateByField(string field)
         {
