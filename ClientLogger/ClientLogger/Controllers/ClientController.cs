@@ -26,7 +26,23 @@ namespace ClientLogger.Controllers
         // [ApiExceptionFilter]
         public virtual IActionResult CreateClient(ClientFullInfo clientFullInfo)
         {
-            _clientService.CreateClient(clientFullInfo);
+            var result = _clientService.CreateClient(clientFullInfo);
+            return JsonData(result);
+        }
+
+        [HttpPost("UpdateClient")]
+        // [ApiExceptionFilter]
+        public virtual IActionResult UpdateClient(ClientFullInfo clientFullInfo)
+        {
+            _clientService.UpdateClient(clientFullInfo);
+            return JsonData(new { });
+        }
+
+        [HttpPost("DeleteClient")]
+        // [ApiExceptionFilter]
+        public virtual IActionResult DeleteClient(ClientFullInfo clientFullInfo)
+        {
+            _clientService.DeleteClient(clientFullInfo);
             return JsonData(new { });
         }
 

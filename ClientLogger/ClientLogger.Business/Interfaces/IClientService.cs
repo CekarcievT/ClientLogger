@@ -6,6 +6,8 @@ namespace ClientLogger.Business.Interfaces
     public interface IClientService
     {
         public List<ClientFullInfo> GetAllCLients();
-        public void CreateClient(ClientFullInfo clientFullInfo);
+        public ClientFullInfo CreateClient(ClientFullInfo clientFullInfo);
+        public void UpdateClient(ClientFullInfo clientFullInfo);
+        public void DeleteClient(ClientFullInfo clientFullInfo);
     }
 }

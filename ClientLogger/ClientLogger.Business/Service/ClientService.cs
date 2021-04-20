@@ -17,9 +17,19 @@ namespace ClientLogger.Business.Service
             return result;
         }
 
-        public void CreateClient(ClientFullInfo clientFullInfo)
+        public ClientFullInfo CreateClient(ClientFullInfo clientFullInfo)
         {
-            _clientRepository.CreateClient(clientFullInfo);
+            return _clientRepository.CreateClient(clientFullInfo);
+        }
+
+        public void UpdateClient(ClientFullInfo clientFullInfo)
+        {
+            _clientRepository.UpdateClient(clientFullInfo);
+        }
+
+        public void DeleteClient(ClientFullInfo clientFullInfo)
+        {
+            _clientRepository.DeleteClient(clientFullInfo);
         }
     }
 }

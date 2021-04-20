@@ -66,7 +66,7 @@ namespace ClientLogger.Business.Repository
             }
         }
 
-        public void CreateClient(ClientFullInfo clientFullInfo)
+        public ClientFullInfo CreateClient(ClientFullInfo clientFullInfo)
         {
             var transaction = _crud.Context.Database.BeginTransaction();
 
@@ -75,13 +75,17 @@ namespace ClientLogger.Business.Repository
 
             try
             {
-                _crud.CreateEntity<Client>(client);
-                _crud.CreateEntity<Address>(address);
+                var newAddress = _crud.CreateEntity<Address>(address);
+
+                client.AddressId = newAddress.id;
+                var newClient = _crud.CreateEntity<Client>(client);
 
                 transaction.Commit();
+                return new ClientFullInfo(newClient, newAddress);
             } catch
             {
                 transaction.Rollback();
+                return new ClientFullInfo();
             }
         }
     }

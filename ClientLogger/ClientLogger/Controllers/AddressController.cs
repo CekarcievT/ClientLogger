@@ -13,7 +13,7 @@ namespace ClientLogger.Controllers
         {
             _addressService = addressService;
         }
-        [HttpGet("AggregateByField")]
+        [HttpPost("AggregateByField")]
         // [ApiExceptionFilter]
         public virtual IActionResult AggregateByField(string field)
         {

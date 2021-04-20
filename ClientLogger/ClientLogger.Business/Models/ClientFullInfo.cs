@@ -13,6 +13,7 @@ namespace ClientLogger.Business.Models
         public string Street { get; set; }
         public string PostName { get; set; }
         public string PostNumber { get; set; }
+        public string PostNameFull { get; set; }
         public string Country { get; set; }
 
         public ClientFullInfo(Client client, Address address)

@@ -13,6 +13,7 @@ namespace ClientLogger
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         private readonly IConfiguration _config;
         public Startup(IConfiguration config)
         {
@@ -35,6 +36,19 @@ namespace ClientLogger
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IAddressService, AddressService>();
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+
+                     builder.AllowAnyOrigin()
+                    .WithMethods("GET")
+                    .WithMethods("POST")
+                    .AllowAnyHeader()
+                );
+            });
+            services.AddOptions();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +58,7 @@ namespace ClientLogger
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
             app.UseRouting();
