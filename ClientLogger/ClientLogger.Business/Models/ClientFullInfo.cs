@@ -28,6 +28,7 @@ namespace ClientLogger.Business.Models
             PostName = address.PostName;
             PostNumber = address.PostNumber;
             Country = address.Country;
+            PostNameFull = PostNumber + " " + PostName;
         }
         public ClientFullInfo() { }
     }
