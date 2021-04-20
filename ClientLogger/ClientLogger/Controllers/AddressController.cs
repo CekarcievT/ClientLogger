@@ -1,5 +1,6 @@
 ﻿using ClientLogger.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using ClientLogger.Infrastructure;
 
 namespace ClientLogger.Controllers
 {
@@ -13,8 +14,9 @@ namespace ClientLogger.Controllers
         {
             _addressService = addressService;
         }
+
         [HttpPost("AggregateByField")]
-        // [ApiExceptionFilter]
+        [CustomAuthorizationFilter]
         public virtual IActionResult AggregateByField(string field)
         {
             var result = _addressService.AggregateByField(field);

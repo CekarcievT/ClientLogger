@@ -1,5 +1,6 @@
 ﻿using ClientLogger.Business.Interfaces;
 using ClientLogger.Business.Models;
+using ClientLogger.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClientLogger.Controllers
@@ -14,8 +15,9 @@ namespace ClientLogger.Controllers
         {
             _clientService = clientService;
         }
+
         [HttpPost("GetAllClients")]
-        // [ApiExceptionFilter]
+        [CustomAuthorizationFilter]
         public virtual IActionResult GetAllClients()
         {
             var result = _clientService.GetAllCLients();
@@ -23,7 +25,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("CreateClient")]
-        // [ApiExceptionFilter]
+        [CustomAuthorizationFilter]
         public virtual IActionResult CreateClient(ClientFullInfo clientFullInfo)
         {
             var result = _clientService.CreateClient(clientFullInfo);
@@ -31,7 +33,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("UpdateClient")]
-        // [ApiExceptionFilter]
+        [CustomAuthorizationFilter]
         public virtual IActionResult UpdateClient(ClientFullInfo clientFullInfo)
         {
             _clientService.UpdateClient(clientFullInfo);
@@ -39,7 +41,7 @@ namespace ClientLogger.Controllers
         }
 
         [HttpPost("DeleteClient")]
-        // [ApiExceptionFilter]
+        [CustomAuthorizationFilter]
         public virtual IActionResult DeleteClient(ClientFullInfo clientFullInfo)
         {
             _clientService.DeleteClient(clientFullInfo);
